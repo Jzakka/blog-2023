@@ -191,7 +191,9 @@
             top: 0,
             behavior: "smooth"
           });
-        })
+        });
+      
+        history.replaceState(null,null,`?id=${pageNo}`);
     }
 
     const params = new URL(document.location).searchParams;
