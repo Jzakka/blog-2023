@@ -7,15 +7,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>정상화 블로그</title>
 
-  <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
-  <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
-
   <!-- 제이쿼리 -->
-  <script src="https://code.jquery.com/jquery-3.6.3.min.js"
-    integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+  <!-- js 쉽게 만들어 줌 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
   <!-- 테일윈드 -->
+  <!-- css 디자인 쉽게 만들어 줌 -->
   <script src="https://cdn.tailwindcss.com"></script>
 
+  <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+  <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
 
   <!-- 신택스 하이라이터 플러그인 라이브러리 시작 -->
   <link rel="stylesheet"
@@ -55,7 +56,7 @@
     html>body .toastui-editor-contents code,
     html>body .toastui-editor-contents pre {
       font-family: "GmarketSansMedium";
-      text-underline-position: below;
+      text-underline-position: under;
     }
   </style>
 
@@ -73,16 +74,48 @@
   </div>
 
   <ul class="list">
-    <li><a href="javascript:;" onclick="showPage(this);" class="block p-2 hover:text--red-500"><span
-          class="mr-auto underline">5</span><span>UML</span><span>2022-03-07</span></a></li>
-    <li><a href="javascript:;" onclick="showPage(this);" class="block p-2 hover:text--red-500"><span
-          class="mr-auto underline">4</span><span>TOAST</span><span>2022-03-07</span></a></li>
-    <li><a href="javascript:;" onclick="showPage(this);" class="block p-2 hover:text--red-500"><span
-          class="mr-auto underline">3</span><span>HTML</span><span>2022-03-07</span></a></li>
-    <li><a href="javascript:;" onclick="showPage(this);" class="block p-2 hover:text--red-500"><span
-          class="mr-auto underline">2</span><span>CSS</span><span>2022-03-07</span></a></li>
-    <li><a href="javascript:;" onclick="showPage(this);" class="block p-2 hover:text--red-500"><span
-          class="mr-auto underline">1</span><span>JAVA</span><span>2022-03-07</span></a></li>
+    <li>
+      <a href="javascript:;" onclick="showPage(this);" class="block p-2 hover:text-red-500 flex gap-2">
+        <span class="data-id-5">6</span>
+        <span class="mr-auto underline">자바스크립트</span>
+        <span>2023-03-08</span>
+      </a>
+    </li>
+    <li>
+      <a href="javascript:;" onclick="showPage(this);" class="block p-2 hover:text-red-500 flex gap-2">
+        <span class="data-id-5">5</span>
+        <span class="mr-auto underline">시퀀스 다이어그램</span>
+        <span>2023-03-08</span>
+      </a>
+    </li>
+    <li>
+      <a href="javascript:;" onclick="showPage(this);" class="block p-2 hover:text-red-500 flex gap-2">
+        <span class="data-id-4">4</span>
+        <span class="mr-auto underline">uml 예시</span>
+        <span>2023-03-07</span>
+      </a>
+    </li>
+    <li>
+      <a href="javascript:;" onclick="showPage(this);" class="block p-2 hover:text-red-500 flex gap-2">
+        <span class="data-id-3">3</span>
+        <span class="mr-auto underline">HTML 기초</span>
+        <span>2023-03-07</span>
+      </a>
+    </li>
+    <li>
+      <a href="javascript:;" onclick="showPage(this);" class="block p-2 hover:text-red-500 flex gap-2">
+        <span class="data-id-2">2</span>
+        <span class="mr-auto underline">CSS 기초</span>
+        <span>2023-03-07</span>
+      </a>
+    </li>
+    <li>
+      <a href="javascript:;" onclick="showPage(this);" class="block p-2 hover:text-red-500 flex gap-2">
+        <span class="data-id-1">1</span>
+        <span class="mr-auto underline">JAVA 기초</span>
+        <span>2023-03-07</span>
+      </a>
+    </li>
   </ul>
 
   <script>
@@ -92,20 +125,30 @@
       const toHTMLRenderers = {
         katex(node) {
           console.log("HI");
-
           let html = katex.renderToString(node.literal, {
             throwOnError: false
           });
 
-          return [
-            { type: "openTag", tagName: "div", outerNewLine: true },
-            { type: "html", content: html },
-            { type: "closeTag", tagName: "div", outerNewLine: true }
+          return [{
+            type: "openTag",
+            tagName: "div",
+            outerNewLine: true
+          },
+          {
+            type: "html",
+            content: html
+          },
+          {
+            type: "closeTag",
+            tagName: "div",
+            outerNewLine: true
+          }
           ];
         }
       };
-
-      return { toHTMLRenderers };
+      return {
+        toHTMLRenderers
+      };
     }
 
     const viewer1MarkdownSource = "로딩중...";
@@ -115,11 +158,15 @@
       viewer: true,
       initialValue: viewer1MarkdownSource,
       plugins: [
-        [toastui.Editor.plugin.codeSyntaxHighlight, { highlighter: Prism }],
+        [toastui.Editor.plugin.codeSyntaxHighlight, {
+          highlighter: Prism
+        }],
         katexPlugin,
         [
           toastui.Editor.plugin.uml,
-          { rendererURL: "http://www.plantuml.com/plantuml/svg/" }
+          {
+            rendererURL: "http://www.plantuml.com/plantuml/svg/"
+          }
         ]
       ]
     });
@@ -130,17 +177,16 @@
 
       const pageNo = $(el).find(' > span:first-child').text();
       const subject = $(el).find(' > span:nth-child(2)').text();
-      const date = $(el).find(' > span:nth-child(3)').text();
+      const createDate = $(el).find(' > span:nth-child(3)').text();
 
       $('.current-page-no').html(pageNo);
       $('.current-page-subject').html(subject);
-      $('.current-page-createDate').html(date);
+      $('.current-page-createDate').html(createDate);
 
       fetch(pageNo + ".md")
         .then(response => response.text()) // 응답에서 본문만 취한다.
         .then(text => {
           viewer1.setMarkdown(text);
-
           window.scrollTo({
             top: 0,
             behavior: "smooth"
@@ -148,8 +194,14 @@
         })
     }
 
-    console.log($('.list > li:first-child > a').click());
+    const params = new URL(document.location).searchParams;
+    const paramId = params.get("id");
 
+    if ($('.data-id-' + paramId).length == 1) {
+      $('.data-id-' + paramId).parent().click();
+    } else {
+      $('.list > li:first-child > a').click();
+    }
   </script>
 
 </body>
